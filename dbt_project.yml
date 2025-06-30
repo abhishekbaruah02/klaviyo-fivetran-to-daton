@@ -1,0 +1,55 @@
+name: "edm_data_transformation"
+version: "1.0.0"
+config-version: 2
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+profile: "edm_data_transformation"
+
+vars:
+  raw_database: "solutionsdw" #equivalent to project_id in BigQuery
+    # Example Database name
+  raw_schema:  "edm_test" #equivalent to dataset in BigQuery
+    # Example Schema name
+  
+
+  # Klaviyo model variables
+  klaviyo_event: true
+  klaviyo_flow_action: true
+  klaviyo_flow_message: true
+  klaviyo_flow_action_tracking_utm_param: true
+  klaviyo_campaign_tracking_utm_param: true
+  klaviyo_person: true
+  klaviyo_segment: true
+  klaviyo_campaign_list: true
+  klaviyo_metric: true
+  klaviyo_flow: true
+  klaviyo_campaign: true
+  klaviyo_campaign_message : true
+  klaviyo_campaign_message_send_time: true
+
+
+
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+
+target-path: "target" # directory which will store compiled SQL files
+clean-targets: # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+models:
+  edm_data_transformation:
+    Staging:
+      +schema: staging
+
+

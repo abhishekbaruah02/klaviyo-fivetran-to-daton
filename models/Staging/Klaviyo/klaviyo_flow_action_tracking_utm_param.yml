@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: klaviyo_flow_action_tracking_utm_param
+    description: "A list of flow action tracking UTM parameters associated with the account"
+    config:
+      materialized: incremental
+      unique_key: flow_action_id
+      incremental_strategy: merge
+    
+    columns:
+      - name: flow_action_id
+        description: "ID of the flow action"
+        tests:
+          - unique
+          - not_null
+      
+      - name: name
+        description: "Name of the UTM parameter"
+        tests:
+          - not_null
+      
+      - name: value
+        description: "Value of the UTM parameter"
+        tests:
+          - not_null

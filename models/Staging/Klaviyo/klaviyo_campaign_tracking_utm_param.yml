@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: klaviyo_campaign_tracking_utm_param
+    description: "A list of campaign tracking UTM parameters associated with the account"
+    config:
+      materialized: incremental
+      unique_key: campaign_id
+      incremental_strategy: merge
+    
+    columns:
+      - name: campaign_id
+        description: "ID of the campaign"
+        tests:
+          - unique
+          - not_null
+      
+      - name: name
+        description: "Name of the UTM parameter"
+
+      
+      - name: value
+        description: "Value of the UTM parameter"
