@@ -1,8 +1,8 @@
-name: "edm_data_transformation"
+name: "klaviyo_daton_package"
 version: "1.0.0"
 config-version: 2
 require-dbt-version: [">=1.0.0", "<2.0.0"]
-profile: "edm_data_transformation"
+profile: "klaviyo_daton_package"
 
 vars:
   raw_database: "solutionsdw" #equivalent to project_id in BigQuery
@@ -48,7 +48,7 @@ clean-targets: # directories to be removed by `dbt clean`
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
-  edm_data_transformation:
+  klaviyo_daton_package:
     Staging:
       +schema: staging
 
