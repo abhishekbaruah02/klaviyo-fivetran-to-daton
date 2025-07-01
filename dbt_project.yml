@@ -23,7 +23,7 @@ vars:
   klaviyo_metric: true
   klaviyo_flow: true
   klaviyo_campaign: true
-  klaviyo_campaign_message : true
+  klaviyo_campaign_message: true
   klaviyo_campaign_message_send_time: true
 
 
