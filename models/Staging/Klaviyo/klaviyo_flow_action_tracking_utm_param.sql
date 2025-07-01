@@ -12,7 +12,7 @@
 
 {% set relations = dbt_utils.get_relations_by_pattern(
 schema_pattern=var('raw_schema'),
-table_pattern='%klaviyo%flow_actions',
+table_pattern=var('klaviyo_flow_action_tracking_utm_param_table_pattern'),
 database=var('raw_database')) %}
 
 {% for i in relations %}

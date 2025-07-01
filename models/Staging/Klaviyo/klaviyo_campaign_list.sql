@@ -12,7 +12,7 @@
 
 {% set relations = dbt_utils.get_relations_by_pattern(
 schema_pattern=var('raw_schema'),
-table_pattern='%klaviyo%campaigns',
+table_pattern=var('klaviyo_campaign_list_table_pattern'),
 database=var('raw_database')) %}
 
 with raw_data as (
