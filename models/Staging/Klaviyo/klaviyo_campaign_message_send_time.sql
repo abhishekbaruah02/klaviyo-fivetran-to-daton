@@ -39,4 +39,4 @@ database=var('raw_database')) %}
     {% endif %}
     {% if not loop.last %} union all {% endif %}
 {% endfor %}
-qualify row_number() over (partition by id order by _daton_batch_runtime desc) = 1
+qualify row_number() over (partition by {{extract_nested_value("data","id","string")}} order by _daton_batch_runtime desc) = 1
