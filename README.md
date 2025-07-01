@@ -27,6 +27,205 @@ This release introduces a package that delivers the exact same dbt models as pro
 | klaviyo_person                    | A list of persons associated with the account            |
 | klaviyo_segment                   | A list of segments associated with the account           |
 
+## Entity Relationship Diagram (ERD)
+
+Below is the ERD for the Klaviyo models in this package. This diagram shows the tables, their columns, and the relationships between them. You can visualize this diagram using Mermaid in supported markdown viewers.
+
+```mermaid
+erDiagram
+  %% **klaviyo_segment**
+  klaviyo_segment {
+    string id PK
+    timestamp created
+    string list_name
+    timestamp updated
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  %% **klaviyo_person**
+  klaviyo_person {
+    string id PK
+    string address1
+    string address2
+    string city
+    string country
+    timestamp created
+    string email
+    string external_id
+    string image
+    string first_name
+    string last_name
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  %% **klaviyo_metric**
+  klaviyo_metric {
+    string id PK
+    timestamp created
+    string integration_category
+    string integration_id
+    string integration_name
+    string integration_object
+    string name
+    timestamp updated
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+  }
+  %% **klaviyo_flow**
+  klaviyo_flow {
+    string id PK
+    boolean archived
+    timestamp created
+    string name
+    string status
+    string trigger_type
+    timestamp updated
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  %% **klaviyo_flow_action**
+  klaviyo_flow_action {
+    string id PK
+    string flow_id FK
+    string action_type
+    timestamp created
+    string status
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  %% **klaviyo_flow_message**
+  klaviyo_flow_message {
+    string id PK
+    string flow_action_id FK
+    string template_id
+    string channel
+    string content_body
+    string content_cc_email
+    string content_from_email
+    string content_from_label
+    string content_media_url
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  %% **klaviyo_event**
+  klaviyo_event {
+    string id PK
+    string campaign_id FK
+    string flow_id FK
+    string flow_message_id FK
+    string metric_id FK
+    string person_id FK
+    timestamp datetime
+    numeric timestamp
+    string type
+    string uuid
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  %% **klaviyo_campaign**
+  klaviyo_campaign {
+    string id PK
+    boolean archived
+    timestamp created
+    string name
+    timestamp scheduled
+    boolean send_option_ignore_unsubscribes
+    boolean send_option_use_smart_sending
+    string send_strategy_method
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  %% **klaviyo_campaign_list**
+  klaviyo_campaign_list {
+    string campaign_id FK
+    string included
+    string excluded
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  %% **klaviyo_campaign_message**
+  klaviyo_campaign_message {
+    string id PK
+    string campaign_id FK
+    string template_id
+    string channel
+    string content_body
+    string content_cc_email
+    string content_from_email
+    string content_from_label
+    string content_media_url
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  %% **klaviyo_campaign_message_send_time**
+  klaviyo_campaign_message_send_time {
+    timestamp datetime
+    string campaign_message_id FK
+    boolean is_local
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  %% **klaviyo_campaign_tracking_utm_param**
+  klaviyo_campaign_tracking_utm_param {
+    string campaign_id FK
+    string name
+    string value
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  %% **klaviyo_flow_action_tracking_utm_param**
+  klaviyo_flow_action_tracking_utm_param {
+    string flow_action_id FK
+    string name
+    string value
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+
+  klaviyo_event }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_event }o--|| klaviyo_flow : "flow_id"
+  klaviyo_event }o--|| klaviyo_flow_message : "flow_message_id"
+  klaviyo_event }o--|| klaviyo_metric : "metric_id"
+  klaviyo_event }o--|| klaviyo_person : "person_id"
+  klaviyo_flow_action }o--|| klaviyo_flow : "flow_id"
+  klaviyo_flow_message }o--|| klaviyo_flow_action : "flow_action_id"
+  klaviyo_campaign_list }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_campaign_message }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_campaign_message_send_time }o--|| klaviyo_campaign_message : "campaign_message_id"
+  klaviyo_campaign_tracking_utm_param }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_flow_action_tracking_utm_param }o--|| klaviyo_flow_action : "flow_action_id"
+```
 ### Migration Notes
 - **No Action Required**: Consumers of these models do not need to update queries or dashboards, as all output remains identical to the Fivetran-based package.
 - **Configuration**: Ensure your `dbt_project.yml` and source configurations reference Daton as the source for Klaviyo data.
@@ -68,3 +267,43 @@ vars:
   raw_database: "your_database"
   raw_schema: "your_schema"
 ```
+
+### Other Configurable Variables
+
+In addition to `raw_database` and `raw_schema`, you can configure the following variables in your `dbt_project.yml` file:
+
+#### Model Enable/Disable Flags
+Set these to `true` or `false` to enable or disable specific models:
+
+- `klaviyo_event`
+- `klaviyo_flow_action`
+- `klaviyo_flow_message`
+- `klaviyo_flow_action_tracking_utm_param`
+- `klaviyo_campaign_tracking_utm_param`
+- `klaviyo_person`
+- `klaviyo_segment`
+- `klaviyo_campaign_list`
+- `klaviyo_metric`
+- `klaviyo_flow`
+- `klaviyo_campaign`
+- `klaviyo_campaign_message`
+- `klaviyo_campaign_message_send_time`
+
+#### Raw Table Pattern Variables
+Override these to change the pattern used to find the raw data tables for each model:
+
+- `klaviyo_event_table_pattern`
+- `klaviyo_flow_action_table_pattern`
+- `klaviyo_flow_message_table_pattern`
+- `klaviyo_flow_action_tracking_utm_param_table_pattern`
+- `klaviyo_campaign_tracking_utm_param_table_pattern`
+- `klaviyo_person_table_pattern`
+- `klaviyo_segment_table_pattern`
+- `klaviyo_campaign_list_table_pattern`
+- `klaviyo_metric_table_pattern`
+- `klaviyo_flow_table_pattern`
+- `klaviyo_campaign_table_pattern`
+- `klaviyo_campaign_message_table_pattern`
+- `klaviyo_campaign_message_send_time_table_pattern`
+
+Refer to the `dbt_project.yml` file for the default values and update as needed for your environment.

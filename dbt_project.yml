@@ -6,10 +6,22 @@ profile: "klaviyo_daton_package"
 
 vars:
   raw_database: "solutionsdw" #equivalent to project_id in BigQuery
-    # Example Database name
   raw_schema:  "edm_test" #equivalent to dataset in BigQuery
-    # Example Schema name
-  
+
+  # Klaviyo raw table patterns as variables
+  klaviyo_event_table_pattern: "%klaviyo%events"
+  klaviyo_flow_action_table_pattern: "%klaviyo%flow_actions"
+  klaviyo_flow_message_table_pattern: "%klaviyo%flow_messages"
+  klaviyo_flow_action_tracking_utm_param_table_pattern: "%klaviyo%flow_actions"
+  klaviyo_campaign_tracking_utm_param_table_pattern: "%klaviyo%campaigns"
+  klaviyo_person_table_pattern: "%klaviyo%profiles"
+  klaviyo_segment_table_pattern: "%klaviyo%segments"
+  klaviyo_campaign_list_table_pattern: "%klaviyo%campaigns"
+  klaviyo_metric_table_pattern: "%klaviyo%metrics"
+  klaviyo_flow_table_pattern: "%klaviyo%flows"
+  klaviyo_campaign_table_pattern: "%klaviyo%campaigns"
+  klaviyo_campaign_message_table_pattern: "%tc_klaviyo%campaign_metadata"
+  klaviyo_campaign_message_send_time_table_pattern: "%klaviyo%campaigns"
 
   # Klaviyo model variables
   klaviyo_event: true
@@ -23,7 +35,7 @@ vars:
   klaviyo_metric: true
   klaviyo_flow: true
   klaviyo_campaign: true
-  klaviyo_campaign_message : true
+  klaviyo_campaign_message: true
   klaviyo_campaign_message_send_time: true
 
 

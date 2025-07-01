@@ -1,4 +1,4 @@
-{% if  var('klaviyo_campaign_message ') %}
+{% if  var('klaviyo_campaign_message') %}
 {{ config( enabled = True ) }}
 {% else %}
 {{ config( enabled = False ) }}
@@ -12,7 +12,7 @@
 
 {% set relations = dbt_utils.get_relations_by_pattern(
 schema_pattern=var('raw_schema'),
-table_pattern='%tc_klaviyo%campaign_metadata',
+table_pattern=var('klaviyo_campaign_message_table_pattern'),
 database=var('raw_database')) %}
 
 {% for i in relations %}
