@@ -68,3 +68,190 @@ vars:
   raw_database: "your_database"
   raw_schema: "your_schema"
 ```
+
+## Entity Relationship Diagram (ERD)
+
+Below is the ERD for the Klaviyo models in this package. This diagram shows the tables, their columns, and the relationships between them. You can visualize this diagram using Mermaid in supported markdown viewers.
+
+```mermaid
+erDiagram
+  klaviyo_segment {
+    string id PK
+    timestamp created
+    string list_name
+    timestamp updated
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  klaviyo_person {
+    string id PK
+    string address1
+    string address2
+    string city
+    string country
+    timestamp created
+    string email
+    string external_id
+    string image
+    string first_name
+    string last_name
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  klaviyo_metric {
+    string id PK
+    timestamp created
+    string integration_category
+    string integration_id
+    string integration_name
+    string integration_object
+    string name
+    timestamp updated
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+  }
+  klaviyo_flow {
+    string id PK
+    boolean archived
+    timestamp created
+    string name
+    string status
+    string trigger_type
+    timestamp updated
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  klaviyo_flow_action {
+    string id PK
+    string flow_id FK
+    string action_type
+    timestamp created
+    string status
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  klaviyo_flow_message {
+    string id PK
+    string flow_action_id FK
+    string template_id
+    string channel
+    string content_body
+    string content_cc_email
+    string content_from_email
+    string content_from_label
+    string content_media_url
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  klaviyo_event {
+    string id PK
+    string campaign_id FK
+    string flow_id FK
+    string flow_message_id FK
+    string metric_id FK
+    string person_id FK
+    timestamp datetime
+    numeric timestamp
+    string type
+    string uuid
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  klaviyo_campaign {
+    string id PK
+    boolean archived
+    timestamp created
+    string name
+    timestamp scheduled
+    boolean send_option_ignore_unsubscribes
+    boolean send_option_use_smart_sending
+    string send_strategy_method
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  klaviyo_campaign_list {
+    string campaign_id FK
+    string included
+    string excluded
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  klaviyo_campaign_message {
+    string id PK
+    string campaign_id FK
+    string template_id
+    string channel
+    string content_body
+    string content_cc_email
+    string content_from_email
+    string content_from_label
+    string content_media_url
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+  }
+  klaviyo_campaign_message_send_time {
+    timestamp datetime
+    string campaign_message_id FK
+    boolean is_local
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  klaviyo_campaign_tracking_utm_param {
+    string campaign_id FK
+    string name
+    string value
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+  klaviyo_flow_action_tracking_utm_param {
+    string flow_action_id FK
+    string name
+    string value
+    string _daton_user_id
+    string _daton_batch_runtime
+    string _daton_batch_id
+    timestamp _last_updated
+    string _run_id
+  }
+
+  klaviyo_event }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_event }o--|| klaviyo_flow : "flow_id"
+  klaviyo_event }o--|| klaviyo_flow_message : "flow_message_id"
+  klaviyo_event }o--|| klaviyo_metric : "metric_id"
+  klaviyo_event }o--|| klaviyo_person : "person_id"
+  klaviyo_flow_action }o--|| klaviyo_flow : "flow_id"
+  klaviyo_flow_message }o--|| klaviyo_flow_action : "flow_action_id"
+  klaviyo_campaign_list }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_campaign_message }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_campaign_message_send_time }o--|| klaviyo_campaign_message : "campaign_message_id"
+  klaviyo_campaign_tracking_utm_param }o--|| klaviyo_campaign : "campaign_id"
+  klaviyo_flow_action_tracking_utm_param }o--|| klaviyo_flow_action : "flow_action_id"
+```
