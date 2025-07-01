@@ -18,13 +18,13 @@ database=var('raw_database')) %}
 {% for i in relations %}
         select
         coalesce(a.id, 'NA') as id,
-        {{extract_nested_value("attributes","created","timestamp")}} as created,  
+        {{extract_nested_value("attributes","created","string")}} as created,  
         {{extract_nested_value("integration","category","string")}} as integration_category,  
         {{extract_nested_value("integration","id","string")}} as integration_id,  
         {{extract_nested_value("integration","name","string")}} as integration_name,  
         {{extract_nested_value("integration","object","string")}} as integration_object,  
         {{extract_nested_value("attributes","name","string")}} as name, 
-        {{extract_nested_value("attributes","updated","timestamp")}} as updated,
+        {{extract_nested_value("attributes","updated","string")}} as updated,
         a.{{daton_user_id()}} as _daton_user_id,
         a.{{daton_batch_runtime()}} as _daton_batch_runtime,
         a.{{daton_batch_id()}} as _daton_batch_id,
