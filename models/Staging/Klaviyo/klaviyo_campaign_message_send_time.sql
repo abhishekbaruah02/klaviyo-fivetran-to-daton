@@ -18,7 +18,7 @@ database=var('raw_database')) %}
 {% for i in relations %}
         select
         {{extract_nested_value("options_static","datetime","timestamp")}} as datetime,
-        {{extract_nested_value("date","id","string")}} as campaign_message_id,
+        {{extract_nested_value("data","id","string")}} as campaign_message_id,
         {{extract_nested_value("options_static","is_local","boolean")}} as is_local,
         a.{{daton_user_id()}} as _daton_user_id,
         a.{{daton_batch_runtime()}} as _daton_batch_runtime,
