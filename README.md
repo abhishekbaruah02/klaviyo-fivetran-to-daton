@@ -33,6 +33,7 @@ Below is the ERD for the Klaviyo models in this package. This diagram shows the 
 
 ```mermaid
 erDiagram
+  %% **klaviyo_segment**
   klaviyo_segment {
     string id PK
     timestamp created
@@ -44,6 +45,7 @@ erDiagram
     timestamp _last_updated
     string _run_id
   }
+  %% **klaviyo_person**
   klaviyo_person {
     string id PK
     string address1
@@ -62,6 +64,7 @@ erDiagram
     timestamp _last_updated
     string _run_id
   }
+  %% **klaviyo_metric**
   klaviyo_metric {
     string id PK
     timestamp created
@@ -75,6 +78,7 @@ erDiagram
     string _daton_batch_runtime
     string _daton_batch_id
   }
+  %% **klaviyo_flow**
   klaviyo_flow {
     string id PK
     boolean archived
@@ -88,6 +92,7 @@ erDiagram
     string _daton_batch_id
     timestamp _last_updated
   }
+  %% **klaviyo_flow_action**
   klaviyo_flow_action {
     string id PK
     string flow_id FK
@@ -99,6 +104,7 @@ erDiagram
     string _daton_batch_id
     timestamp _last_updated
   }
+  %% **klaviyo_flow_message**
   klaviyo_flow_message {
     string id PK
     string flow_action_id FK
@@ -114,6 +120,7 @@ erDiagram
     string _daton_batch_id
     timestamp _last_updated
   }
+  %% **klaviyo_event**
   klaviyo_event {
     string id PK
     string campaign_id FK
@@ -130,6 +137,7 @@ erDiagram
     string _daton_batch_id
     timestamp _last_updated
   }
+  %% **klaviyo_campaign**
   klaviyo_campaign {
     string id PK
     boolean archived
@@ -144,6 +152,7 @@ erDiagram
     string _daton_batch_id
     timestamp _last_updated
   }
+  %% **klaviyo_campaign_list**
   klaviyo_campaign_list {
     string campaign_id FK
     string included
@@ -154,6 +163,7 @@ erDiagram
     timestamp _last_updated
     string _run_id
   }
+  %% **klaviyo_campaign_message**
   klaviyo_campaign_message {
     string id PK
     string campaign_id FK
@@ -169,6 +179,7 @@ erDiagram
     string _daton_batch_id
     timestamp _last_updated
   }
+  %% **klaviyo_campaign_message_send_time**
   klaviyo_campaign_message_send_time {
     timestamp datetime
     string campaign_message_id FK
@@ -179,6 +190,7 @@ erDiagram
     timestamp _last_updated
     string _run_id
   }
+  %% **klaviyo_campaign_tracking_utm_param**
   klaviyo_campaign_tracking_utm_param {
     string campaign_id FK
     string name
@@ -189,6 +201,7 @@ erDiagram
     timestamp _last_updated
     string _run_id
   }
+  %% **klaviyo_flow_action_tracking_utm_param**
   klaviyo_flow_action_tracking_utm_param {
     string flow_action_id FK
     string name
