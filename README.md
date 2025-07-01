@@ -27,48 +27,6 @@ This release introduces a package that delivers the exact same dbt models as pro
 | klaviyo_person                    | A list of persons associated with the account            |
 | klaviyo_segment                   | A list of segments associated with the account           |
 
-### Migration Notes
-- **No Action Required**: Consumers of these models do not need to update queries or dashboards, as all output remains identical to the Fivetran-based package.
-- **Configuration**: Ensure your `dbt_project.yml` and source configurations reference Daton as the source for Klaviyo data.
-- **Validation**: All standard dbt tests (e.g., `unique`, `not null`) are in place to ensure data integrity.
-
-
-## DBT Tests
-
-The tests property defines assertions about a column, table, or view. The property contains a list of generic tests, referenced by name, which can include the four built-in generic tests available in dbt. For example, you can add tests that ensure a column contains no duplicates and zero null values. Any arguments or configurations passed to those tests should be nested below the test name.
-
-| **Tests**  | **Description** |
-| ---------------| ------------------------------------------- |
-| [Not Null Test](https://docs.getdbt.com/reference/resource-properties/tests#testing-an-expression)  | This test validates that there are no null values present in a column |
-| [Data Recency Test](https://github.com/dbt-labs/dbt-utils/blob/main/macros/generic_tests/recency.sql)  | This is used to check for issues with data refresh within {{ x }} days, please specify the value of number of days at {{ x }} |
-| [Accepted Value Test](https://docs.getdbt.com/reference/resource-properties/tests#accepted_values)  | This test validates that all of the values in a column are present in a supplied list of values. If any values other than those provided in the list are present, then the test will fail, by default it consists of default values and this needs to be changed based on the project |
-| [Uniqueness Test](https://docs.getdbt.com/reference/resource-properties/tests#testing-an-expression)  | This test validates that there are no duplicate values present in a field |
-
-
----
-
-## Prerequisites for Fivetran to Daton dbt Package
-
-- [Daton integration for Klaviyo](https://www.sarasanalytics.com/daton/klaviyo)
-
-### Supported Data Warehouses
-- BigQuery
-
----
-
-## Configuration for dbt Package
-
-### Required Variables
-This dbt package assumes that you have an existing dbt project with a BigQuery/Snowflake profile connected & tested.
-
-Set the following in your `dbt_project.yml` file:
-
-```yaml
-vars:
-  raw_database: "your_database"
-  raw_schema: "your_schema"
-```
-
 ## Entity Relationship Diagram (ERD)
 
 Below is the ERD for the Klaviyo models in this package. This diagram shows the tables, their columns, and the relationships between them. You can visualize this diagram using Mermaid in supported markdown viewers.
@@ -255,3 +213,46 @@ erDiagram
   klaviyo_campaign_tracking_utm_param }o--|| klaviyo_campaign : "campaign_id"
   klaviyo_flow_action_tracking_utm_param }o--|| klaviyo_flow_action : "flow_action_id"
 ```
+### Migration Notes
+- **No Action Required**: Consumers of these models do not need to update queries or dashboards, as all output remains identical to the Fivetran-based package.
+- **Configuration**: Ensure your `dbt_project.yml` and source configurations reference Daton as the source for Klaviyo data.
+- **Validation**: All standard dbt tests (e.g., `unique`, `not null`) are in place to ensure data integrity.
+
+
+## DBT Tests
+
+The tests property defines assertions about a column, table, or view. The property contains a list of generic tests, referenced by name, which can include the four built-in generic tests available in dbt. For example, you can add tests that ensure a column contains no duplicates and zero null values. Any arguments or configurations passed to those tests should be nested below the test name.
+
+| **Tests**  | **Description** |
+| ---------------| ------------------------------------------- |
+| [Not Null Test](https://docs.getdbt.com/reference/resource-properties/tests#testing-an-expression)  | This test validates that there are no null values present in a column |
+| [Data Recency Test](https://github.com/dbt-labs/dbt-utils/blob/main/macros/generic_tests/recency.sql)  | This is used to check for issues with data refresh within {{ x }} days, please specify the value of number of days at {{ x }} |
+| [Accepted Value Test](https://docs.getdbt.com/reference/resource-properties/tests#accepted_values)  | This test validates that all of the values in a column are present in a supplied list of values. If any values other than those provided in the list are present, then the test will fail, by default it consists of default values and this needs to be changed based on the project |
+| [Uniqueness Test](https://docs.getdbt.com/reference/resource-properties/tests#testing-an-expression)  | This test validates that there are no duplicate values present in a field |
+
+
+---
+
+## Prerequisites for Fivetran to Daton dbt Package
+
+- [Daton integration for Klaviyo](https://www.sarasanalytics.com/daton/klaviyo)
+
+### Supported Data Warehouses
+- BigQuery
+
+---
+
+## Configuration for dbt Package
+
+### Required Variables
+This dbt package assumes that you have an existing dbt project with a BigQuery/Snowflake profile connected & tested.
+
+Set the following in your `dbt_project.yml` file:
+
+```yaml
+vars:
+  raw_database: "your_database"
+  raw_schema: "your_schema"
+```
+
+
