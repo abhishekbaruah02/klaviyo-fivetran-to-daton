@@ -268,4 +268,42 @@ vars:
   raw_schema: "your_schema"
 ```
 
+### Other Configurable Variables
 
+In addition to `raw_database` and `raw_schema`, you can configure the following variables in your `dbt_project.yml` file:
+
+#### Model Enable/Disable Flags
+Set these to `true` or `false` to enable or disable specific models:
+
+- `klaviyo_event`
+- `klaviyo_flow_action`
+- `klaviyo_flow_message`
+- `klaviyo_flow_action_tracking_utm_param`
+- `klaviyo_campaign_tracking_utm_param`
+- `klaviyo_person`
+- `klaviyo_segment`
+- `klaviyo_campaign_list`
+- `klaviyo_metric`
+- `klaviyo_flow`
+- `klaviyo_campaign`
+- `klaviyo_campaign_message`
+- `klaviyo_campaign_message_send_time`
+
+#### Raw Table Pattern Variables
+Override these to change the pattern used to find the raw data tables for each model:
+
+- `klaviyo_event_table_pattern`
+- `klaviyo_flow_action_table_pattern`
+- `klaviyo_flow_message_table_pattern`
+- `klaviyo_flow_action_tracking_utm_param_table_pattern`
+- `klaviyo_campaign_tracking_utm_param_table_pattern`
+- `klaviyo_person_table_pattern`
+- `klaviyo_segment_table_pattern`
+- `klaviyo_campaign_list_table_pattern`
+- `klaviyo_metric_table_pattern`
+- `klaviyo_flow_table_pattern`
+- `klaviyo_campaign_table_pattern`
+- `klaviyo_campaign_message_table_pattern`
+- `klaviyo_campaign_message_send_time_table_pattern`
+
+Refer to the `dbt_project.yml` file for the default values and update as needed for your environment.
