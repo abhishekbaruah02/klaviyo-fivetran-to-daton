@@ -248,7 +248,7 @@ The tests property defines assertions about a column, table, or view. The proper
 
 - [Daton integration for Klaviyo](https://www.sarasanalytics.com/daton/klaviyo)
 
-### Mapping of Required Raw Tables for Klaviyo Models in Daton Integration
+### Required Raw Tables for Klaviyo Models in Daton Integration
 
 | Model Name                        | Raw Table Name / Pattern              |
 |:----------------------------------|:--------------------------------------|
