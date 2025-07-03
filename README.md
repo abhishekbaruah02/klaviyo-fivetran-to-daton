@@ -1,7 +1,5 @@
 # Project Documentation
 
-## Release Notes: Klaviyo
-
 ### Overview
 This release introduces a package that delivers the exact same dbt models as provided by Fivetran’s Klaviyo integration, now powered by Daton as the data source. The models’ structure, logic, and outputs are fully aligned with the Fivetran Klaviyo dbt package, ensuring seamless compatibility for all downstream analytics and reporting. The current release supports Big Query as the warehouse to which Daton is loading into.
 
@@ -249,6 +247,24 @@ The tests property defines assertions about a column, table, or view. The proper
 ## Prerequisites for Fivetran to Daton dbt Package
 
 - [Daton integration for Klaviyo](https://www.sarasanalytics.com/daton/klaviyo)
+
+### Required Raw Tables for Klaviyo Models in Daton Integration
+
+| Model Name                        | Raw Table Name / Pattern              |
+|:----------------------------------|:--------------------------------------|
+| klaviyo_event                     | events                       |
+| klaviyo_campaign                  | campaigns                    |
+| klaviyo_campaign_list             | campaigns                    |
+| klaviyo_campaign_message          | campaign_metadata         |
+| klaviyo_campaign_message_send_time| campaigns                    |
+| klaviyo_campaign_tracking_utm_param|campaigns                   |
+| klaviyo_flow                      | flows                        |
+| klaviyo_flow_action               | flow_actions                 |
+| klaviyo_flow_action_tracking_utm_param| flow_actions            |
+| klaviyo_flow_message              | flow_messages                |
+| klaviyo_metric                    | metrics                      |
+| klaviyo_person                    | profiles                     |
+| klaviyo_segment                   | segments                     |
 
 ### Supported Data Warehouses
 - BigQuery
